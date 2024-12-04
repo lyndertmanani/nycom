@@ -11,7 +11,7 @@ const rootElement = document.getElementById('root');
 if (rootElement !== null) {
   ReactDOM.createRoot(rootElement).render(
     <React.StrictMode>
-      <NextUIProvider className="  text-foreground bg-white ">
+      <NextUIProvider className="  text-foreground bg-slate-100 h-screen ">
         <App />
       </NextUIProvider>
     </React.StrictMode>,

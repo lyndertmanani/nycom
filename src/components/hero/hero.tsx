@@ -15,7 +15,7 @@ const Hero = () => {
                 </svg>
             </a>  */}
             <h1 className="mb-4 text-6xl font-bold tracking-tight leading-none md:text-5xl lg:text-8xl  ">Honoring Excellence & Achievements 2024 <br/> NYCOM Awards</h1> 
-            <p className="mb-8 text-lg lg:text-center font-normal text-slate-500 lg:text-sm sm:text-xs sm:px-16 lg:px-48  ">As the year comes to an end, let’s take a moment to appreciate the amazing work we’ve done together at NYCOM – The National Youth Council of Malawi. This December, we’re inviting YOU to join in recognizing the stars of our team—those who’ve made this year extra special.
+            <p className="mb-8  lg:text-center font-normal text-slate-500 lg:text-sm text-xs sm:px-16 lg:px-48  ">As the year comes to an end, let’s take a moment to appreciate the amazing work we’ve done together at NYCOM – The National Youth Council of Malawi. This December, we’re inviting YOU to join in recognizing the stars of our team—those who’ve made this year extra special.
 
 </p>
            
