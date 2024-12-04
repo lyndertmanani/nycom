@@ -6,12 +6,13 @@ import {
 } from "react-router-dom";
 import BaseLayout from "./layouts/base";
 import Home from "./pages/home";
+import NominationForm from "./pages/from"
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<BaseLayout />}>
       <Route index element={<Home />} />
-      {/* <Route path="login" element={<Login />} /> */}
+      <Route path="vote/:id" element={<NominationForm />} />
       {/* <Route path="*" element={<Error />} /> */}
       
     </Route>)
