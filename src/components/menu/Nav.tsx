@@ -3,11 +3,11 @@ import {
     NavbarBrand,
     NavbarContent,
     NavbarItem,
-    Tooltip,
+    // Tooltip,
  
     // NavbarMenu,
     // NavbarMenuItem,
-    NavbarMenuToggle,
+    // NavbarMenuToggle,
     
   } from "@nextui-org/react";
   import React from "react";
@@ -15,7 +15,7 @@ import {
   import { NavLink } from "react-router-dom";
   import Logo from "/logo-x.png";
   export default function App() {
-    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    // const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   
     return (
       <Navbar onMenuOpenChange={setIsMenuOpen} maxWidth="full" className="h-16 p-5 bg-white/70 ">
