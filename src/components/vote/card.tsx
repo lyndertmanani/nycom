@@ -1,31 +1,37 @@
+import { useNavigate } from 'react-router-dom';
+import { Category } from './data';
 
-import { categories } from "./data";
-import { truncateWords } from "./utils";
-import { useNavigate } from "react-router-dom";
+interface CardProps {
+  category: Category;
+}
 
-const Cards = () => {
+const Card: React.FC<CardProps> = ({ category }) => {
   const navigate = useNavigate();
 
-  const handleClick = (id) => {
-    navigate(`/vote/${id}`);
+  const handleCardClick = () => {
+    navigate(`/nomination/${category.id}`);
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {categories.map((category) => (
-        <div
-          key={category.id}
-          onClick={() => handleClick(category.id)}
-          className="w-[300px] overflow-hidden duration-700 border-gray-400 rounded-lg border ease-in-out delay-0 transform transition text-black hover:text-gray-800 bg-opacity-65 bg-[#ffffff00] shadow-none hover:shadow-xl cursor-pointer"
-        >
-          <div className="px-4 py-2">
-            <h1 className="text-xl font-bold">{truncateWords(category.title, 7)}</h1>
-            <p className="mt-1 text-sm">{truncateWords(category.description.join(" "), 14)}</p>
-          </div>
+    <div 
+      className="p-4 transform transition-all duration-300 hover:scale-105 cursor-pointer  bg-white border  hover:border-[#d1d1d1] rounded-md bg-opacity-80 backdrop-filter backdrop-blur-xl hover:bg-opacity-70"
+      onClick={handleCardClick}
+    >
+      <div className="max-w-full h-full overflow-hidden">
+        <div className="px-4 py-3">
+          <h2 className="text-xl font-bold text-gray-800 mb-2">{category.title}</h2>
+          <ul className="text-sm text-gray-600 list-disc list-inside">
+            {category.description.map((desc, index) => (
+              <li key={index} className="mb-1">{desc}</li>
+            ))}
+          </ul>
         </div>
-      ))}
+        <div className="px-4 py-2 bg-gray-50 border-t">
+          <p className="text-xs text-gray-500 italic">{category.question}</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Cards;
+export default Card;

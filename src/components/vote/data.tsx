@@ -1,4 +1,11 @@
-export const categories = [
+export interface Category {
+  id: number;
+  title: string;
+  description: string[];
+  question: string;
+}
+
+export const categories: Category[] = [
   {
     id: 0,
     title: "Teamwork",
@@ -23,7 +30,7 @@ export const categories = [
     id: 2,
     title: "Customer service",
     description: [
-      "Focuses on discovering, then meeting, fellow employees’ needs both on time and courteously.",
+      "Focuses on discovering, then meeting, fellow employees' needs both on time and courteously.",
       "Consistently sets the example of providing excellent internal Customer Service at the same level as external service.",
       "Finds time to be involved in civic and voluntary work without complaining.",
     ],
