@@ -1,94 +1,74 @@
 import {
-    Navbar,
-    NavbarBrand,
-    NavbarContent,
-    NavbarItem,
-    // Tooltip,
- 
-    // NavbarMenu,
-    // NavbarMenuItem,
-    // NavbarMenuToggle,
-    
-  } from "@nextui-org/react";
-  // import React from "react";
-   
-  import { NavLink } from "react-router-dom";
-  import Logo from "/logo-x.png";
-  export default function App() {
- 
-  
-    return (
-      <Navbar  maxWidth="full" className="h-16 p-5 bg-white/70 ">
-       
-          <NavbarBrand>
-              <img src={Logo} className="rounded-none h-20 py-5" alt="Main logo" />  
-        </NavbarBrand>
-       
-         {/* 
-        <NavbarContent className="hidden sm:flex font-semibold text-black gap-4" justify="end">
-          <NavbarItem>
-            <NavLink className="hover:text-black duration-700" color="foreground" to="/">
-              Home
-            </NavLink>
-          </NavbarItem>
-          <NavbarItem>
-          <Tooltip showArrow={true} content="Documentation" className="  text-black">
-            <NavLink className="hover:text-black duration-700" color="foreground" to="doc">
-            Service
-            </NavLink>
-            </Tooltip>
-          </NavbarItem>
-          <NavbarItem>
-            <NavLink className="hover:text-black duration-700" color="foreground" to="about">
-             About Us
-            </NavLink>
-          </NavbarItem>
-          <NavbarItem>
-            <NavLink className="hover:text-black duration-700 border-2 border-orange-500 py-1 px-3 " color="foreground" to="contact">
-              Contact
-            </NavLink>
-          </NavbarItem>
-         
-        </NavbarContent>
-    
-        <NavbarMenu  className="bg-black bg-opacity-100 text-slate-600"  >
-          <NavbarMenuItem>
-            <NavLink color="foreground" className="hover:text-black duration-700" to="/">
-              Home
-            </NavLink>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-          <NavLink className="hover:text-black duration-700" color="foreground" to="doc">
-              Docs
-            </NavLink>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <NavLink color="foreground"  className="hover:text-black duration-700" to="about">
-              About
-            </NavLink>
-          </NavbarMenuItem>
-          <NavbarMenuItem>
-            <NavLink color="foreground"  className="hover:text-black duration-700" to="contact">
-              Contact
-            </NavLink>
-          </NavbarMenuItem>
-           
-        </NavbarMenu> */}
-         {/* <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden"
-          /> */}
-         <NavbarContent justify="end">
-        <NavbarItem>
-          <NavLink 
-            className='px-4 lg:py-2   border-none   border font-medium text-black  bg-[#ffffff]   hover:text-black/50 duration-700' 
-            to="vote"
-          >
-            Go Voting
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Button,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+} from "@nextui-org/react";
+import { NavLink } from "react-router-dom";
+import Logo from "/logo-x.png";
+
+export default function App() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  return (
+    <>
+      {/* Navbar */}
+      <Navbar maxWidth="full" className="h-16 p-5 bg-white/70">
+        <NavbarBrand>
+          <NavLink to="/">
+            <img src={Logo} className="rounded-none h-20 py-5" alt="Main logo" />
           </NavLink>
-        </NavbarItem>
+        </NavbarBrand>
+
+        <NavbarContent justify="end">
+          <NavbarItem>
+            {/* Go Voting Button triggers the modal */}
+            <Button
+              className="px-4 lg:py-2 border-none font-medium text-black bg-[#ffffff] hover:text-black/50 duration-700"
+              onPress={onOpen}
+            >
+              Go Voting
+            </Button>
+          </NavbarItem>
         </NavbarContent>
-        
       </Navbar>
-    );
-  }
+
+      {/* Modal */}
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+      >
+        <ModalContent className="bg-black/50 text-white bg-opacity-80 backdrop-filter backdrop-blur-lg hover:bg-opacity-70 rounded-lg">
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1 "> </ModalHeader>
+              <ModalBody>
+                <h1 className="font-bold text-4xl ">Oops</h1>
+                
+ <p> It looks like we are still in the nomination phase! This means voting hasn’t started</p>
+                <p>  We’re currently reviewing and finalizing the list of nominees. Once everything is ready, the voting phase will begin, and you’ll have the opportunity to support your favorite candidates. </p> 
+                <p>We appreciate your patience and enthusiasm for this event. Stay tuned for further updates, and thank you for being a part of the process </p>
+               
+              </ModalBody>
+              <ModalFooter>
+                <Button  className=" p-5 bg-white  text-black rounded-full" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+              
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
+    </>
+  );
+}

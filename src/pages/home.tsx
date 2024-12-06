@@ -1,6 +1,6 @@
  
 import Hero from './../components/hero/hero';
-import Render from './../components/vote/render';
+import Render from '../components/Nomination/render';
  
 
 const Home =()=> {
