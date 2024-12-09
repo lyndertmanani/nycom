@@ -13,9 +13,10 @@ import Signup from "./pages/auth/signup";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<BaseLayout />}>
-      <Route index element={<Login/>} />
+      <Route index element={<Home/>} />
       <Route path="nomination/:id" element={<NominationForm />} />
       <Route path="home" element={<Home />} /> 
+      <Route path="Login" element={<Login/>} /> 
       <Route path="Signup" element={<Signup/>} /> 
       {/* <Route path="*" element={<Error />} /> */}
       

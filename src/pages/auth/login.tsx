@@ -65,16 +65,16 @@ const Login: React.FC = () => {
   return (
     <div className="relative w-full h-screen">
       {/* <img src={bg} alt="" className="w-full h-full object-cover object-center absolute" /> */}
-      <div className="bg-gradient-to-b from-transparent to-black opacity-90 w-full h-full absolute top-0 left-0 z-0"></div>
+      {/* <div className="bg-gradient-to-b from-transparent to-black opacity-90 w-full h-full absolute top-0 left-0 z-0"></div> */}
       
       <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-        <form onSubmit={handleSubmit} className="w-full max-w-sm text-white">
+        <form onSubmit={handleSubmit} className="w-full max-w-sm text-black">
           <div className="flex items-center justify-center mb-4">
-            <img src={Logo} className="h-14" alt="PashoyoMw_logo" />
+            <img src={Logo} className="h-28" alt="PashoyoMw_logo" />
           </div>
           
           {errorMessage && (
-            <div className="mb-4 text-center text-[#498bb1]">
+            <div className="mb-4 text-center text-[#cb2121]">
               {errorMessage}
             </div>
           )}
@@ -86,7 +86,7 @@ const Login: React.FC = () => {
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 mb-2 border-none outline-none rounded-full bg-[#2c2c2c45] bg-opacity-40"
+                className="w-full px-4 py-2 mb-2 border-none outline-none  bg-[#6d6d6d] bg-opacity-40 rounded-lg"
                 placeholder="Email"
                 required
               />
@@ -96,7 +96,7 @@ const Login: React.FC = () => {
                   type={showPassword ? "text" : "password"}
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border-none outline-none rounded-full bg-[#2c2c2c45] bg-opacity-40"
+                  className="w-full px-4 py-2 border-none outline-none  bg-[#6d6d6d] bg-opacity-40 rounded-lg"
                   placeholder="Password"
                   required
                 />
@@ -114,7 +114,7 @@ const Login: React.FC = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-3/4 px-4 py-1.5 mb-2 border-none outline-none rounded-full cursor-pointer bg-[#099dad] text-gray-50 hover:text-slate-300 hover:bg-[#099dadb7] hover:bg-opacity-40 duration-700"
+              className="w-3/4 px-4 py-1.5 mb-2 border-none outline-none rounded-lg cursor-pointer bg-[#222222] text-gray-50 hover:text-slate-300 hover:bg-[#0b0b0bb7] hover:bg-opacity-40 duration-700"
             >
               {isLoading ? 'Logging in...' : 'Log In'}
             </button>
@@ -122,9 +122,9 @@ const Login: React.FC = () => {
           
           <div className="flex justify-center">
             <div className="inline-flex">
-              <p className="mr-2 hover:underline"><Link to="/signup">Sign up</Link> |</p>
-              <p className="mr-2 hover:underline"><Link to="/forgot">Forgot Password?</Link> |</p>
-              <p className="mr-2 hover:underline"><Link to="#">Help</Link></p>
+              <p className="mr-2 ">Don't have an account? <Link className="hover:underline" to="/signup">Sign up</Link></p>
+              {/* <p className="mr-2 hover:underline"><Link to="/forgot">Forgot Password?</Link> |</p> */}
+              {/* <p className="mr-2 hover:underline"><Link to="#">Help</Link></p> */}
             </div>
           </div>
         </form>

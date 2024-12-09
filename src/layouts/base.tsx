@@ -1,14 +1,17 @@
-import { Outlet} from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import MainNav from "../components/menu/Nav";
 // import Footer from "../components/menu/footer";
  
-
-const BaseLayout = () => {
  
+const BaseLayout = () => {
+  const location = useLocation();
+  const isloginPage = location.pathname.includes("/login");
+  const isSignupPage = location.pathname.includes("/signup");
+  
   return (
     <>
  
-       <MainNav/>
+      {!isloginPage && !isSignupPage && <  MainNav />}
       <main>
         <Outlet />
       </main>
