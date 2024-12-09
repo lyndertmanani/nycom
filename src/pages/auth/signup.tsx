@@ -5,7 +5,7 @@ import { auth } from '../../config/firebase';
 import Logo from '/logo-x.png';
 // import Imagebg from '/assets/gradient/docs-left.svg';
 import { IconEyeClosed, IconEye } from '@tabler/icons-react';
-import { PasswordStrengthChecker } from './hooks/password';
+import { PasswordStrengthChecker } from './hooks/passwords';
 
 // Define interface for form data
 interface FormData {
