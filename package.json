@@ -12,7 +12,9 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@nextui-org/react": "^2.6.5",
+    "@tabler/icons-react": "^3.24.0",
     "@types/npm": "^7.19.3",
+    "firebase": "^11.0.2",
     "framer-motion": "^11.13.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -21,8 +23,9 @@
   "devDependencies": {
     "@eslint/js": "^9.15.0",
     "@iconify/react": "^5.0.2",
-    "@types/react": "^18.3.12",
+    "@types/react": "^18.3.14",
     "@types/react-dom": "^18.3.1",
+    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.15.0",
