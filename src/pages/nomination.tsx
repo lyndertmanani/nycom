@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
-import { categories } from "../components/Nomination/data";
-import { Select, SelectItem } from "@nextui-org/select";
-import { nominees } from "./NameData";
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { supabase } from "../config/supabaseClient";
+import { categories } from "../components/Nomination/data";
+import { nominees } from "./NameData";
+import { Select, MenuItem } from "@mui/material";
 
 const NominationForm = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,6 +31,24 @@ const NominationForm = () => {
 
     if (!email) {
       setErrorMessage("User not authenticated");
+      return;
+    }
+
+    // Check if current user has already nominated this specific name in this category
+    const { data: existingNomination, error: checkError } = await supabase
+      .from("nominations")
+      .select("*")
+      .eq("email", email)
+      .eq("category", category?.title || "")
+      .eq("nominee", nominee);
+
+    if (checkError) {
+      setErrorMessage("Error checking nomination");
+      return;
+    }
+
+    if (existingNomination && existingNomination.length > 0) {
+      setErrorMessage(`You have already nominated ${nominee} in this category`);
       return;
     }
 
@@ -84,18 +102,20 @@ const NominationForm = () => {
           </div>
           <div className="grid grid-cols-2 space-x-10 justify-start mt-5">
             <Select
-              className="max-w-xs h-10 bg-white border hover:border-[#d1d1d1]"
-              defaultSelectedKeys={["name"]}
-              placeholder="Select a nominee"
-              onSelectionChange={(keys) => {
-                const selectedKey = Array.from(keys)[0];
-                if (typeof selectedKey === 'number') {
-                  setNominee(nominees[selectedKey]);
-                }
-              }}
+              fullWidth
+              value={nominee}
+              onChange={(e) => setNominee(e.target.value)}
+              displayEmpty
+              required
+              className="h-10 bg-white border"
             >
+              <MenuItem value="" disabled>
+                Select a nominee
+              </MenuItem>
               {nominees.map((name, index) => (
-                <SelectItem key={index}>{name}</SelectItem>
+                <MenuItem key={index} value={name}>
+                  {name}
+                </MenuItem>
               ))}
             </Select>
 

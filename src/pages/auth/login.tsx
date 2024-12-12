@@ -13,7 +13,7 @@ interface FormData {
 const Login: React.FC = () => {
   const auth = getAuth();
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState<FormData>({
     email: '',
     password: ''
@@ -21,7 +21,8 @@ const Login: React.FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
+
+  // handleChange function to update form data
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData(prevData => ({
@@ -30,6 +31,7 @@ const Login: React.FC = () => {
     }));
   };
 
+  // handleSubmit function for login logic
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage('');
@@ -37,12 +39,12 @@ const Login: React.FC = () => {
 
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
-      navigate("home");
+      navigate("/home"); // Use an absolute path
     } catch (error) {
       console.error('Login error:', error);
       setErrorMessage(
-        error instanceof Error 
-          ? error.message 
+        error instanceof Error
+          ? error.message
           : 'An error occurred during login.'
       );
     } finally {
@@ -50,17 +52,17 @@ const Login: React.FC = () => {
     }
   };
 
+  // Redirect to home if the user is already logged in
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         console.log('User is logged in:', user);
-        navigate("home"); // Redirect to home if the user is already logged in
+        navigate("/home"); // Use an absolute path
       } else {
         console.log('User is logged out');
       }
     });
 
-    // Clean up the subscription when the component unmounts
     return () => unsubscribe();
   }, [auth, navigate]);
 
@@ -68,19 +70,19 @@ const Login: React.FC = () => {
     <div className="relative w-full h-screen">
       {/* <img src={bg} alt="" className="w-full h-full object-cover object-center absolute" /> */}
       {/* <div className="bg-gradient-to-b from-transparent to-black opacity-90 w-full h-full absolute top-0 left-0 z-0"></div> */}
-      
+
       <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
         <form onSubmit={handleSubmit} className="w-full max-w-sm text-black">
           <div className="flex items-center justify-center mb-4">
             <img src={Logo} className="h-28" alt="PashoyoMw_logo" />
           </div>
-          
+
           {errorMessage && (
             <div className="mb-4 text-center text-[#cb2121]">
               {errorMessage}
             </div>
           )}
-          
+
           <div className="flex justify-center mt-3 px-3">
             <div className="inline w-full">
               <input
@@ -111,7 +113,7 @@ const Login: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="flex justify-center mt-1">
             <button
               type="submit"
@@ -121,7 +123,7 @@ const Login: React.FC = () => {
               {isLoading ? 'Logging in...' : 'Log In'}
             </button>
           </div>
-          
+
           <div className="flex justify-center">
             <div className="inline-flex">
               <p className="mr-2 ">Don't have an account? <Link className="hover:underline" to="/signup">Sign up</Link></p>
