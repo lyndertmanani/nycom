@@ -52,4 +52,15 @@ export const categories: Category[] = [
     description: ["Regularly dresses well for work and is always presentable."],
     question: "In what ways is your nominee's dressing exemplary?",
   },
+
+  {
+    id: 5,
+    title: "Employee of the Year",
+    description: [
+      "Has consistently demonstrated exceptional performance throughout the year.",
+      "Shows leadership, dedication, and a strong commitment to the company’s goals.",
+      "Has been an inspiration to colleagues and contributed significantly to team success.",
+    ],
+    question: "Why do you think this nominee deserves to be Employee of the Year?",
+  }
 ];
