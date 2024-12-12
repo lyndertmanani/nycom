@@ -9,14 +9,13 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 interface NominationFormProps {
   // Add any props if needed
 }
-
 const NominationForm: React.FC<NominationFormProps> = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-  
+
   // Enhanced category finding with error handling
-  const category = id 
-    ? categories.find((cat) => cat.id === parseInt(id)) 
+  const category = id
+    ? categories.find((cat) => cat.id === parseInt(id))
     : undefined;
 
   // State management for form
@@ -62,7 +61,7 @@ const NominationForm: React.FC<NominationFormProps> = () => {
         nominee,
         description: description.trim(),
         category: category?.title || "Uncategorized",
-        timestamp: Timestamp.now()
+        timestamp: Timestamp.now(),
       };
 
       // Add to Firestore
@@ -71,14 +70,13 @@ const NominationForm: React.FC<NominationFormProps> = () => {
 
       // Success handling
       alert("Nomination submitted successfully!");
-      
+
       // Reset form
       setNominee("");
       setDescription("");
 
       // Optionally navigate
-      navigate('/nominations-submitted');
-
+      navigate("/nominations-submitted");
     } catch (error) {
       console.error("Nomination submission error:", error);
       alert("Failed to submit nomination. Please try again.");
@@ -102,8 +100,8 @@ const NominationForm: React.FC<NominationFormProps> = () => {
             Invalid Nomination Category
           </h2>
           <p className="mt-4">The category you're looking for does not exist.</p>
-          <button 
-            onClick={() => navigate('/')} 
+          <button
+            onClick={() => navigate("/")}
             className="mt-4 px-4 py-2 bg-black text-white rounded"
           >
             Return to Home
@@ -120,18 +118,16 @@ const NominationForm: React.FC<NominationFormProps> = () => {
           Annual Employee of the Year Awards Nomination: {category.title}
         </h1>
       </section>
-      
+
       <div className="flex justify-center items-center pt-10 mx-5">
         <form onSubmit={handleSubmit} className="w-full max-w-xl">
           <div className="items-start justify-start mb-4">
             <h1 className="text-black text-start text-xl leading-tighter font-bold">
               {category.question}
             </h1>
-            <p className="text-sm text-gray-600">
-              {category.description.join(" ")}
-            </p>
+            <p className="text-sm text-gray-600">{category.description.join(" ")}</p>
           </div>
-          
+
           <div className="justify-start mt-3">
             <textarea
               name="description"
@@ -147,29 +143,35 @@ const NominationForm: React.FC<NominationFormProps> = () => {
               {description.length}/600 characters
             </div>
           </div>
-          
+
           <div className="grid grid-cols-2 space-x-10 justify-start mt-5">
-            <Select
-              className="max-w-xs h-10 bg-white border hover:border-[#d1d1d1]"
-              placeholder="Select a nominee"
-              onSelectionChange={handleNomineeChange}
-            >
-              {nominees.map((name, index) => (
-                <SelectItem key={index} value={name}>
-                  {name}
-                </SelectItem>
-              ))}
-            </Select>
-            
+          <Select
+  className="max-w-xs h-10 bg-white border hover:border-[#d1d1d1]"
+  placeholder="Select a nominee"
+  selectedKeys={nominee ? [nominee] : []} // This helps track the selected value
+  onSelectionChange={(keys) => {
+    const selectedKey = Array.from(keys)[0];
+    if (selectedKey) {
+      const selectedNominee = nominees[Number(selectedKey)];
+      setNominee(selectedNominee);
+    }
+  }}
+>
+  {nominees.map((name, index) => (
+    <SelectItem key={index} value={name}>
+      {name}
+    </SelectItem>
+  ))}
+</Select>
             <div>
               <input
                 type="submit"
                 value={isSubmitting ? "Submitting..." : "Nominate"}
-                disabled={isSubmitting}
+                // disabled={isSubmitting}
                 className={`lg:w-1/2 p-5 lg:px-2 py-1.5 mb-2 outline-none cursor-pointer border-none 
-                  ${isSubmitting 
-                    ? 'bg-gray-400 cursor-not-allowed' 
-                    : 'bg-black text-white duration-700 hover:bg-gray-800'
+                  ${isSubmitting
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-black text-white duration-700 hover:bg-gray-800"
                   }`}
               />
             </div>
