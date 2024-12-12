@@ -1,4 +1,5 @@
-import {
+import  { useState, useEffect } from 'react';
+import { 
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -11,11 +12,34 @@ import {
   ModalFooter,
   useDisclosure,
 } from "@nextui-org/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged, signOut, User } from "firebase/auth";
 import Logo from "/logo-x.png";
 
 export default function App() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [user, setUser] = useState<User | null>(null);
+  const auth = getAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [auth]);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      // Redirect to login page after logout
+      navigate('/');
+    } catch (error) {
+      console.error("Error logging out: ", error);
+    }
+  };
 
   return (
     <>
@@ -26,17 +50,30 @@ export default function App() {
             <img src={Logo} className="rounded-none h-20 py-5" alt="Main logo" />
           </NavLink>
         </NavbarBrand>
-
         <NavbarContent justify="end">
-          <NavbarItem>
-            {/* Go Voting Button triggers the modal */}
-            <Button
-              className="px-4 lg:py-2 border-none font-medium text-black bg-[#ffffff] hover:text-black/50 duration-700"
-              onPress={onOpen}
-            >
-              Go Voting
-            </Button>
-          </NavbarItem>
+          {user ? (
+            <>
+              {/* Logout Button */}
+              <NavbarItem>
+                <Button
+                  className="px-4 lg:py-2 border-none font-medium text-black bg-[#ffffff] hover:text-black/50 duration-700"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </NavbarItem>
+            </>
+          ) : (
+            <NavbarItem>
+              {/* Go Voting Button triggers the modal */}
+              <Button
+                className="px-4 lg:py-2 border-none hidden font-medium text-black bg-[#ffffff] hover:text-black/50 duration-700"
+                onPress={onOpen}
+              >
+                Go Voting
+              </Button>
+            </NavbarItem>
+          )}
         </NavbarContent>
       </Navbar>
 
@@ -50,20 +87,21 @@ export default function App() {
         <ModalContent className="bg-black/50 text-white bg-opacity-80 backdrop-filter backdrop-blur-lg hover:bg-opacity-70 rounded-lg">
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 "> </ModalHeader>
+              <ModalHeader className="flex flex-col gap-1"></ModalHeader>
               <ModalBody>
-                <h1 className="font-bold text-4xl ">Oops</h1>
-                
- <p> It looks like we are still in the nomination phase! This means voting hasn’t started</p>
-                <p>  We’re currently reviewing and finalizing the list of nominees. Once everything is ready, the voting phase will begin, and you’ll have the opportunity to support your favorite candidates. </p> 
-                <p>We appreciate your patience and enthusiasm for this event. Stay tuned for further updates, and thank you for being a part of the process </p>
-               
+                <h1 className="font-bold text-4xl">Oops</h1>
+                <p>It looks like we are still in the nomination phase! This means voting hasn't started</p>
+                <p>We're currently reviewing and finalizing the list of nominees. Once everything is ready, the voting phase will begin, and you'll have the opportunity to support your favorite candidates.</p>
+                <p>We appreciate your patience and enthusiasm for this event. Stay tuned for further updates, and thank you for being a part of the process</p>
               </ModalBody>
               <ModalFooter>
-                <Button  className=" p-5 bg-white  text-black rounded-full" variant="light" onPress={onClose}>
+                <Button 
+                  className="p-5 bg-white text-black rounded-full" 
+                  variant="light" 
+                  onPress={onClose}
+                >
                   Close
                 </Button>
-              
               </ModalFooter>
             </>
           )}
