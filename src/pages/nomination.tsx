@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { categories } from "../components/Nomination/data";
 import { Select, SelectItem } from "@nextui-org/select";
 import { nominees } from "./NameData"; // Import dynamic data
+ 
 
 const NominationForm = () => {
   const { id } = useParams<{ id: string }>(); // Explicitly type params
