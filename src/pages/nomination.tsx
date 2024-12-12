@@ -92,12 +92,13 @@ const NominationForm = () => {
           <div className="justify-start mt-3">
             <textarea
               name="description"
-              maxLength={280}
+              maxLength={600}
               required
               value={story}
               onChange={(e) => setStory(e.target.value)}
               className="w-full h-40 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Write your story (max 280 characters)..."
+              placeholder="Why are you nominating this person...?"
+
             ></textarea>
           </div>
           <div className="grid grid-cols-2 space-x-10 justify-start mt-5">
