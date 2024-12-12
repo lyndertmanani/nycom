@@ -54,13 +54,15 @@ const Login: React.FC = () => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         console.log('User is logged in:', user);
+        navigate("home"); // Redirect to home if the user is already logged in
       } else {
         console.log('User is logged out');
       }
     });
 
+    // Clean up the subscription when the component unmounts
     return () => unsubscribe();
-  }, [auth]);
+  }, [auth, navigate]);
 
   return (
     <div className="relative w-full h-screen">
