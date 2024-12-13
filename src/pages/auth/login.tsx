@@ -90,7 +90,7 @@ const Login: React.FC = () => {
             </div>
           )}
 
-          <div className="flex justify-center mt-3 px-3">
+          <div className="flex hidden justify-center mt-3 px-3">
             <div className="inline w-full">
               <input
                 name="email"
