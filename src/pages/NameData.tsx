@@ -8,7 +8,7 @@ export const nominees = [
   "Mike Bamusi",
   "Robert Phiri",
   "Atupele Ngonga",
-  "Davie Tembo",
+  "David Tembo",
   "Collins Mpelembe",
   "Cynthia Kumbemba",
   "Elenesto Bendala",

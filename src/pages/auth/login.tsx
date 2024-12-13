@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { IconEye, IconEyeClosed } from '@tabler/icons-react';
 import Logo from "/logo-x.png";
-// import bg from "/assets/gradient/docs-left.svg";
 
 interface FormData {
   email: string;
@@ -42,11 +41,22 @@ const Login: React.FC = () => {
       navigate("/home"); // Use an absolute path
     } catch (error) {
       console.error('Login error:', error);
-      setErrorMessage(
-        error instanceof Error
-          ? error.message
-          : 'An error occurred during login.'
-      );
+
+      // Firebase error handling
+      if (error instanceof Error) {
+        if (error.message.includes('auth/user-not-found')) {
+          setErrorMessage('No account found with this email. Please sign up.');
+        } else if (error.message.includes('auth/wrong-password')) {
+          setErrorMessage('Incorrect password. Please try again.');
+        } else if (error.message.includes('auth/invalid-email')) {
+          setErrorMessage('The email address is not valid. Please check your input.');
+        } else {
+          setErrorMessage('An error occurred during login. Please try again later.');
+        }
+      } else {
+        // Handle unexpected errors
+        setErrorMessage('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -68,9 +78,6 @@ const Login: React.FC = () => {
 
   return (
     <div className="relative w-full h-screen">
-      {/* <img src={bg} alt="" className="w-full h-full object-cover object-center absolute" /> */}
-      {/* <div className="bg-gradient-to-b from-transparent to-black opacity-90 w-full h-full absolute top-0 left-0 z-0"></div> */}
-
       <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
         <form onSubmit={handleSubmit} className="w-full max-w-sm text-black">
           <div className="flex items-center justify-center mb-4">
@@ -127,8 +134,6 @@ const Login: React.FC = () => {
           <div className="flex justify-center">
             <div className="inline-flex">
               <p className="mr-2 ">Don't have an account? <Link className="hover:underline" to="/signup">Sign up</Link></p>
-              {/* <p className="mr-2 hover:underline"><Link to="/forgot">Forgot Password?</Link> |</p> */}
-              {/* <p className="mr-2 hover:underline"><Link to="#">Help</Link></p> */}
             </div>
           </div>
         </form>
