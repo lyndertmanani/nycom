@@ -82,7 +82,7 @@ const Signup: React.FC = () => {
 
             setMessage('Sign up successful! Please check your email for confirmation.');
             setMessageType('success');
-            navigate(`/login?email=${encodeURIComponent(formData.email)}`);
+            navigate(`/`);
         } catch (error: unknown) {
             let errorMessage = 'Oops, something went wrong.';
             
