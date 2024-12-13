@@ -44,7 +44,7 @@ export default function App() {
   return (
     <>
       {/* Navbar */}
-      <Navbar maxWidth="full" className="h-16 p-5 bg-white/70">
+      <Navbar maxWidth="full" className="h-16 hidden p-5 bg-white/70">
         <NavbarBrand>
           <NavLink to="/">
             <img src={Logo} className="rounded-none h-20 py-5" alt="Main logo" />
