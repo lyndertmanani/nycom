@@ -131,7 +131,7 @@ const Login: React.FC = () => {
             </button>
           </div>
 
-          <div className="flex hidden justify-center">
+          <div className="flex justify-center">
             <div className="inline-flex">
               <p className="mr-2 ">Don't have an account? <Link className="hover:underline" to="/signup">Sign up</Link></p>
             </div>
