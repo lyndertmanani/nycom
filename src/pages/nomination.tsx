@@ -123,7 +123,7 @@ const NominationForm = () => {
             <input
               type="submit"
               value="Nominate"
-              className="lg:w-1/2 p-5 lg:px-2 py-1.5 mb-2 outline-none cursor-pointer border-none bg-black text-white duration-700"
+              className="lg:w-1/2 p-5 lg:px-2 py-1.5 mb-2 outline-none cursor-pointer border-none bg-black/30 text-white duration-700"
            disabled />
           </div>
           
