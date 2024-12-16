@@ -110,7 +110,7 @@ const NominationForm = () => {
               required
               className="h-10 bg-white border"
             >
-              <MenuItem value="" disabled>
+              <MenuItem value="" >
                 Select a nominee
               </MenuItem>
               {nominees.map((name, index) => (
